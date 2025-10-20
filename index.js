@@ -15,6 +15,7 @@ app.use(express.json())
 const adapter = new JSONFile("db.json");
 const db = new Low(adapter, { strings: [] });
 await db.read();
+db.data ||= { strings: [] };
 
 function analyzerString(value) {
   const cleaned = value.toLowerCase();
@@ -109,7 +110,7 @@ app.get("/strings", async (req, res) => {
   }
   if (contains_character) {
     results = results.filter((s) =>
-      s.value.toLowerCase().includes(contains_character.toLowerCase)
+      s.value.toLowerCase().includes(contains_character.toLowerCase())
     );
   }
   res.json({
@@ -119,7 +120,7 @@ app.get("/strings", async (req, res) => {
   });
 });
 
-app.delete("strings/:value", async (req, res) => {
+app.delete("/strings/:value", async (req, res) => {
   const value = req.params.value;
   const hash = crypto.createHash("sha256").update(value).digest("hex");
 
