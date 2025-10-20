@@ -10,6 +10,7 @@ const app = express();
 app.use(cors());
 dotenv.config();
 app.use(bodyParser.json());
+app.use(express.json())
 
 const adapter = new JSONFile("db.json");
 const db = new Low(adapter, { strings: [] });
