@@ -133,7 +133,7 @@ app.delete("/strings/:value", async (req, res) => {
   res.status(204).send();
 });
 
-const port = process.env.PORT || 3000;
+const port = 3000;
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
