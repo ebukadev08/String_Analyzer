@@ -2,14 +2,13 @@ import express from "express";
 import crypto from "crypto";
 import cors from "cors";
 import dotenv from "dotenv";
-import bodyParser from "body-parser";
+
 import { Low } from "lowdb";
 import { JSONFile } from "lowdb/node";
 
 const app = express();
 app.use(cors());
 dotenv.config();
-app.use(bodyParser.json());
 app.use(express.json())
 
 const adapter = new JSONFile("./data/db.json");
@@ -19,7 +18,7 @@ db.data ||= { strings: [] };
 
 function analyzerString(value) {
   const cleaned = value.toLowerCase();
-  const reserved = cleaned.split(" ").reverse().join();
+  const reserved = cleaned.split("").reverse().join("");
   const is_palindrome = cleaned === reserved;
   const unique_characters = new Set(cleaned.replace(/\s/g, "")).size;
   const word_count = value.trim().split(/\s+/).filter(Boolean).length;
