@@ -12,7 +12,7 @@ dotenv.config();
 app.use(bodyParser.json());
 app.use(express.json())
 
-const adapter = new JSONFile("db.json");
+const adapter = new JSONFile("./data/db.json");
 const db = new Low(adapter, { strings: [] });
 await db.read();
 db.data ||= { strings: [] };
@@ -133,7 +133,7 @@ app.delete("/strings/:value", async (req, res) => {
   res.status(204).send();
 });
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
